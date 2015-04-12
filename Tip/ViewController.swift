@@ -37,15 +37,35 @@ class ViewController: UIViewController {
 
     
     @IBAction func onEditingChanged(sender: AnyObject) {
+        
+        // Get selected tip percentage
         var tipPercentages = [0.18, 0.2, 0.22]
         var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
         
-        var billAmount = (billField.text as NSString).doubleValue
+        // Remove the prefix '$'
+        var billString = billField.text
+        if billString.hasPrefix("$") {
+            billString = billString.substringFromIndex(advance(billString.startIndex, 1))
+            if billString.isEmpty {
+                billField.text = nil
+            }
+        }
+        else {
+            billField.text = "$" + billField.text;
+        }
+        
+        // Compute tip and total
+        var billAmount = (billString as NSString).doubleValue
         var tip = billAmount * tipPercentage
         var total = billAmount + tip
 
+        // Update values
         tipLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String(format: "$%.2f", total)
+    }
+    
+    @IBAction func onSwipeBill(sender: AnyObject) {
+        billField.text = nil
     }
 }
 
