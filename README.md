@@ -20,4 +20,4 @@ A tip calculator created as the pre-work for CodePath iOS for Designers class.
 ![Video Walkthrough](Walkthrough.gif)
 
 
-GIF created with (http://www.getcloudapp.com/blog/cloudapp-introduces-version-3 "Cloud App")".
+GIF created with [Cloud App](http://www.getcloudapp.com/blog/cloudapp-introduces-version-3 "Cloud App")".
