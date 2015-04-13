@@ -3,12 +3,12 @@ Tip-Calculator
 
 A tip calculator created as the pre-work for CodePath iOS for Designers class. 
 
-## Time Spent
+### Time Spent
 30 min for basic calculator
 2 - 3 hours refining the design
 4 hours figuring out and debugging the animations and optional features
 
-## User Stories
+### User Stories
 * Basic calcuator with 3 tabs
 * Swipe right to clear the bill
 * Added a placeholder '$0' for bill, and prefix '$'
@@ -16,6 +16,8 @@ A tip calculator created as the pre-work for CodePath iOS for Designers class.
 * App icon
 * Launch image
 
+
 ![Video Walkthrough](Walkthrough.gif)
+
 
 GIF created with (http://www.getcloudapp.com/blog/cloudapp-introduces-version-3 "Cloud App")".
