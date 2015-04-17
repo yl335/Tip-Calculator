@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>A8910B6D-F072-485F-B0AB-F155AEE94E78</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Tip</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>B8FEC7F4CE77B16AD2C4CB7B69D1787EA1804932</key>
 		<string>https://github.com/yl335/Tip-Calculator.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Tip.xcodeproj/project.xcworkspace</string>
+	<string>Tip.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B8FEC7F4CE77B16AD2C4CB7B69D1787EA1804932</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>B8FEC7F4CE77B16AD2C4CB7B69D1787EA1804932</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Tip</string>
+			<string>Tip-Calculator</string>
 		</dict>
 	</array>
 </dict>
