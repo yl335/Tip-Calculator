@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -11,20 +11,45 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Test" translatesAutoresizingMaskIntoConstraints="NO" id="3rZ-t3-gsP">
-                    <rect key="frame" x="-80" y="44" width="480" height="480"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2se-xd-ehI" userLabel="Container">
+                    <rect key="frame" x="80" y="204" width="160" height="160"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="3rZ-t3-gsP">
+                            <rect key="frame" x="46" y="0.0" width="70" height="70"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="EMJ-SV-dZ3"/>
+                                <constraint firstAttribute="width" secondItem="3rZ-t3-gsP" secondAttribute="height" multiplier="1:1" id="Nxd-X2-2Ne"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asU-XC-ELa">
+                            <rect key="frame" x="64" y="90" width="33" height="31"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="22"/>
+                            <color key="textColor" red="0.1873059084" green="0.2378366368" blue="0.2956068623" alpha="0.5" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="3rZ-t3-gsP" secondAttribute="height" multiplier="1:1" id="Nxd-X2-2Ne"/>
+                        <constraint firstItem="asU-XC-ELa" firstAttribute="top" secondItem="3rZ-t3-gsP" secondAttribute="bottom" constant="20" id="Bqz-N1-wxm"/>
+                        <constraint firstAttribute="centerX" secondItem="asU-XC-ELa" secondAttribute="centerX" id="D8R-Gd-yHO"/>
+                        <constraint firstAttribute="centerX" secondItem="3rZ-t3-gsP" secondAttribute="centerX" id="PKR-aV-Dis"/>
+                        <constraint firstAttribute="width" constant="160" id="huw-eb-mK4"/>
+                        <constraint firstAttribute="height" constant="160" id="jqd-VT-3Cg"/>
+                        <constraint firstItem="3rZ-t3-gsP" firstAttribute="top" secondItem="2se-xd-ehI" secondAttribute="top" id="tIO-2Q-o7V"/>
                     </constraints>
-                </imageView>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="2se-xd-ehI" secondAttribute="centerX" id="M4U-eh-LRw"/>
+                <constraint firstAttribute="centerY" secondItem="2se-xd-ehI" secondAttribute="centerY" id="UQB-mp-l88"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
     <resources>
-        <image name="Test" width="320" height="480"/>
+        <image name="Icon" width="70" height="117"/>
     </resources>
 </document>
