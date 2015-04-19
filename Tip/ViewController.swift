@@ -9,22 +9,34 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    // Constraints
+    @IBOutlet weak var bottomLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var billBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var billHeightConstraint: NSLayoutConstraint!
+    
 
+    var tempBillBottomConstraint: NSLayoutConstraint!
+    var actualBillBottomConstraint: NSLayoutConstraint!
+    var tempBillHeightConstraint: NSLayoutConstraint!
+    
+    // Containers
     @IBOutlet weak var billContainer: UIView!
+    @IBOutlet weak var tipContainer: UIView!
+    @IBOutlet weak var totalContainer: UIView!
+    
+    // Labels and Fields
     @IBOutlet weak var billLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
-    let maxBillContainerHeight: CGFloat = 350.0
-    let minBillContainerHeight: CGFloat = 168.0
-    let minBillLabelY: CGFloat = 74.0
-    let maxBillLabelY: CGFloat = 175.0
-    let minBillFieldY: CGFloat = 64.0
-    let maxBillFieldY: CGFloat = 165.0
-    let minBillLabelFontSize: CGFloat = 14.0
-    let maxBillLabelFontSize: CGFloat = 18.0
+    // Borders
+    @IBOutlet weak var KeyboardBorder: UIView!
+    
+    // Constants
+    var bottomLayoutConstant: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +53,20 @@ class ViewController: UIViewController {
         totalLabel.text = "$0.00"
         
         // Hide tip and total labels
-        billContainer.frame.size.height = self.maxBillContainerHeight
         tipControl.alpha = 0
-        billLabel.frame.origin.y = maxBillLabelY
-        billField.frame.origin.y = maxBillFieldY
+        tipContainer.alpha = 0
+        totalContainer.alpha = 0
+        
+        tempBillHeightConstraint = billHeightConstraint
+        
+        // Expand the bill container to full screen
+        tempBillBottomConstraint = NSLayoutConstraint(item: billContainer, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: KeyboardBorder, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
+        actualBillBottomConstraint = NSLayoutConstraint(item: billContainer, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: tipContainer, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
+
+        view.removeConstraint(billBottomConstraint)
+        view.addConstraint(tempBillBottomConstraint)
+        view.removeConstraint(billHeightConstraint)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,6 +74,34 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShowNotification:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHideNotification:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShowNotification(notification: NSNotification) {
+        updateBottomLayoutConstraintWithNotification(notification)
+    }
+    
+    func keyboardWillHideNotification(notification: NSNotification) {
+        updateBottomLayoutConstraintWithNotification(notification)
+    }
+    
+    func updateBottomLayoutConstraintWithNotification(notification: NSNotification) {
+        let userInfo = notification.userInfo!        
+        let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        let convertedKeyboardEndFrame = view.convertRect(keyboardEndFrame, fromView: view.window)
+        
+        bottomLayoutConstant = CGRectGetMaxY(view.bounds) - CGRectGetMinY(convertedKeyboardEndFrame)
+        bottomLayoutConstraint.constant = bottomLayoutConstant
+    }
     
     @IBAction func onEditingChanged(sender: AnyObject) {
         
@@ -86,27 +136,35 @@ class ViewController: UIViewController {
             // If no bill, maximize screen for bill input
             if (billAmount.isZero) {
                 
-                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.25, animations: {
+                UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.1, animations: {
                     self.tipControl.alpha = 0
+                    self.tipContainer.alpha = 0
+                    self.totalContainer.alpha = 0
+                    
                 })
 
-                UIView.addKeyframeWithRelativeStartTime(0.3, relativeDuration: 0.7, animations: {
-                    self.billContainer.frame.size.height = self.maxBillContainerHeight
-                    self.billLabel.frame.origin.y = self.maxBillLabelY
-                    self.billField.frame.origin.y = self.maxBillFieldY
+                self.view.removeConstraint(self.tempBillHeightConstraint)
+                self.view.removeConstraint(self.actualBillBottomConstraint)
+                self.view.addConstraint(self.tempBillBottomConstraint)
+                
+                UIView.addKeyframeWithRelativeStartTime(0.1, relativeDuration: 0.9, animations: {
+                    self.view.layoutIfNeeded()
                 })
             }
             // If there is a bill, show tip & total
             else {
-                
+                self.view.removeConstraint(self.tempBillBottomConstraint)
+                self.view.addConstraint(self.actualBillBottomConstraint)
+                self.view.addConstraint(self.tempBillHeightConstraint)
+
                 UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.7, animations: {
-                    self.billContainer.frame.size.height = self.minBillContainerHeight
-                    self.billLabel.frame.origin.y = self.minBillLabelY
-                    self.billField.frame.origin.y = self.minBillFieldY
+                    self.view.layoutIfNeeded()
                 })
                 
-                UIView.addKeyframeWithRelativeStartTime(0.75, relativeDuration: 0.25, animations: {
+                UIView.addKeyframeWithRelativeStartTime(0.8, relativeDuration: 0.2, animations: {
                     self.tipControl.alpha = 1
+                    self.tipContainer.alpha = 1
+                    self.totalContainer.alpha = 1
                 })
             }
             
